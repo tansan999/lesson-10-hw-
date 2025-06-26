@@ -12,15 +12,8 @@ const Login = ({ onLogin }) => {
   const [passwordIsValid, setPasswordIsValid] = useState(true);
 
   useEffect(() => {
-    console.log("Mounting");
-    // функция очистки Unmounting
-
     return () => {
-      // Убрать addEventListeners
-      // Очистить таймер
-      // Чтобы не было утечки памяти
-      console.log("Unmounting");
-      alert("вы покидайете сайт");
+      console.log("вы покидайете сайт");
     };
   }, []);
 

@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
-import Login from "./components/login/Login";
 import MainHeader from "./components/main-header/MainHeader";
+import Login from "./components/login/Login";
+import { useEffect, useState } from "react";
 import Home from "./components/home/Home";
+import User from "./components/user/User";
+import RickyAndMortyCard from "./components/_rickyandmorty_card/RickyAndMortyCard";
 
 // как сделать что бы при перезагрузке страницы пользлвателя остовался в Странице (Wellcome Page ) а не в Logine ?
 // как при перезагрузке isloggede сделать true
 function App() {
-  const [userName, setUserName] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState({});
   const [users, setUsers] = useState([]);
+  const [page, setPage] = useState();
 
   const loginHandler = (email, password) => {
     setUserName({ email: email, password: password });
@@ -26,33 +29,21 @@ function App() {
 
   // useEffect callback функцияны компронента торолгондо бир гана иштетет
   // Mounthing = [] = бир жолу callback функция иштейт
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((data) => {
-        return data.json();
-      })
-      .then((users) => {
-        setUsers(users);
-      });
-  }, []);
+
+  const navigateToUser = (e, param) => {
+    e.preventDefault();
+    setPage(param);
+    console.log(param);
+  };
 
   return (
     <>
-      <MainHeader />
+      <MainHeader navigateToUser={navigateToUser} isLoggedIn={isLoggedIn} />
+
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {<MainHeader isLoggedIn={isLoggedIn} />}
-        {isLoggedIn && <Home />}
-
-        <section>
-          <h2>Users</h2>
-          {users.map((user) => (
-            <div key={user.id}>
-              <p>{user.name}</p>
-              <code>{user.phone}</code>
-            </div>
-          ))}
-        </section>
+        {isLoggedIn && page === "users" && <User />}
+        {isLoggedIn && page === "_RICKY AND MORTY_" && <Ric kyAndMortyCard />}
       </main>
     </>
   );
