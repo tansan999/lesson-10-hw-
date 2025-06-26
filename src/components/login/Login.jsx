@@ -1,14 +1,14 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import Card from "../UI/Card";
 import Button from "../UI/Button";
-import { useEffect, useState } from "react";
 
 const Login = ({ onLogin }) => {
   const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
   const [emailIsValid, setEmailIsValid] = useState(true);
+  const [passwordValue, setPasswordValue] = useState("");
   const [passwordIsValid, setPasswordIsValid] = useState(true);
 
   useEffect(() => {
